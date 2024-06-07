@@ -21,6 +21,7 @@ public class LoginFragment extends Fragment {
     private EditText inputEditText;
     private Button hideButton;
     private Button unlockButton;
+    private Button signupButton;
     private boolean isPasswordVisible = false;
 
     public static LoginFragment newInstance() {
@@ -37,21 +38,12 @@ public class LoginFragment extends Fragment {
         hideButton = view.findViewById(R.id.login_hide_password);
         unlockButton = view.findViewById(R.id.login_unlock);
 
-        // Set hide/show password functionality
-        hideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePasswordVisibility();
-            }
-        });
 
-        // Set unlock button functionality
-        unlockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                unlockPassword();
-            }
-        });
+        hideButton.setOnClickListener(v -> togglePasswordVisibility());
+
+        unlockButton.setOnClickListener(v -> unlockPassword());
+
+        signupButton.setOnClickListener(v -> goToSignup());
 
         return view;
     }
@@ -59,10 +51,10 @@ public class LoginFragment extends Fragment {
     private void togglePasswordVisibility() {
         if (isPasswordVisible) {
             inputEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            hideButton.setText("🤓");
+            hideButton.setText("😎");
         } else {
             inputEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            hideButton.setText("😎");
+            hideButton.setText("🤓");
         }
         isPasswordVisible = !isPasswordVisible;
         inputEditText.setSelection(inputEditText.getText().length()); // Move cursor to end of text
@@ -91,5 +83,10 @@ public class LoginFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "密码错误，请重试", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void goToSignup() {
+        SignupFragment signupFragment = SignupFragment.newIntence();
+        ((MainActivity)getActivity()).replaceFragment(signupFragment);
     }
 }
