@@ -1,7 +1,7 @@
 package com.example.passwords.fragment;
 
-import static java.security.AccessController.getContext;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.passwords.R;
 import com.example.passwords.MainActivity;
+import com.example.passwords.key.PasswordUtil;
 
-public class SignupFragment  extends Fragment {
+public class SignupFragment extends Fragment {
+
     EditText inputEditText;
     Button hideButton;
     EditText re_inputEditText;
@@ -25,13 +27,12 @@ public class SignupFragment  extends Fragment {
     Button confirmButton;
     private boolean[] isPasswordVisible = {false, false};
 
-    public static SignupFragment newIntence() {
+    public static SignupFragment newInstance() {
         return new SignupFragment();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
         inputEditText = view.findViewById(R.id.signup_input_password);
@@ -43,8 +44,7 @@ public class SignupFragment  extends Fragment {
         hideButton.setOnClickListener(v -> togglePasswordVisibility(inputEditText, 0));
         re_hideButton.setOnClickListener(v -> togglePasswordVisibility(re_inputEditText, 1));
 
-        confirmButton.setOnClickListener(v -> unlockPassword());
-
+        confirmButton.setOnClickListener(v -> registerUser());
 
         return view;
     }
@@ -58,20 +58,15 @@ public class SignupFragment  extends Fragment {
             hideButton.setText("🤓");
         }
         isPasswordVisible[index] = !isPasswordVisible[index];
-        editText.setSelection(editText.getText().length()); // Move cursor to end of text
+        editText.setSelection(editText.getText().length());
     }
 
-    private void unlockPassword() {
+    private void registerUser() {
         String inputPassword = inputEditText.getText().toString();
         String re_inputPassword = re_inputEditText.getText().toString();
 
-        if (inputPassword.isEmpty()) {
-            Toast.makeText(getContext(), "请输入主密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (re_inputPassword.isEmpty()) {
-            Toast.makeText(getContext(), "请再次输入主密码", Toast.LENGTH_SHORT).show();
+        if (inputPassword.isEmpty() || re_inputPassword.isEmpty()) {
+            Toast.makeText(getContext(), "请输入主密码和再次输入主密码", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -80,10 +75,20 @@ public class SignupFragment  extends Fragment {
             return;
         }
 
-        // Add your password registration logic here
-        // For example, save the password to shared preferences or a database
+        // 创建密码的散列值并保存
+        savePassword(inputPassword);
 
         Toast.makeText(getContext(), "密码创建成功", Toast.LENGTH_SHORT).show();
     }
 
+    private void savePassword(String password) {
+        // 密码散列值
+        String hashedPassword = PasswordUtil.hashPassword(password);
+
+        // 将散列密码保存到SharedPreferences
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("password_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("main_password_hash", hashedPassword);
+        editor.apply();
+    }
 }

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.passwords.MainActivity;
 import com.example.passwords.R;
+import com.example.passwords.key.PasswordUtil;
 
 public class LoginFragment extends Fragment {
 
@@ -37,6 +38,7 @@ public class LoginFragment extends Fragment {
         inputEditText = view.findViewById(R.id.login_input_password);
         hideButton = view.findViewById(R.id.login_hide_password);
         unlockButton = view.findViewById(R.id.login_unlock);
+        signupButton = view.findViewById(R.id.login_signup);
 
 
         hideButton.setOnClickListener(v -> togglePasswordVisibility());
@@ -60,6 +62,13 @@ public class LoginFragment extends Fragment {
         inputEditText.setSelection(inputEditText.getText().length()); // Move cursor to end of text
     }
 
+    private boolean isPasswordCorrect(String inputPassword) {
+        SharedPreferences sharedPref = getContext().getSharedPreferences("password_prefs", Context.MODE_PRIVATE);
+        String storedPassword = sharedPref.getString("main_password_hash", null);
+
+        return storedPassword != null && PasswordUtil.checkPassword(inputPassword, storedPassword);
+    }
+
     private void unlockPassword() {
         String inputPassword = inputEditText.getText().toString();
 
@@ -68,25 +77,25 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        SharedPreferences sharedPref = getContext().getSharedPreferences("password_prefs", Context.MODE_PRIVATE);
-        String storedPassword = sharedPref.getString("main_password", null);
-
-        if (storedPassword != null && storedPassword.equals(inputPassword)) {
+        if (isPasswordCorrect(inputPassword)) {
             Toast.makeText(getContext(), "解锁成功", Toast.LENGTH_SHORT).show();
 
+            // 登录成功后跳转到密码列表页面
             PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
             ((MainActivity)getActivity()).replaceFragment(passwordListFragment);
 
+            // 添加底部导航栏
             BottomBarFragment bottomBarFragment = BottomBarFragment.newInstance();
             ((MainActivity)getActivity()).replaceFragment(bottomBarFragment);
-
         } else {
             Toast.makeText(getContext(), "密码错误，请重试", Toast.LENGTH_SHORT).show();
         }
     }
 
+
+
     private void goToSignup() {
-        SignupFragment signupFragment = SignupFragment.newIntence();
+        SignupFragment signupFragment = SignupFragment.newInstance();
         ((MainActivity)getActivity()).replaceFragment(signupFragment);
     }
 }
