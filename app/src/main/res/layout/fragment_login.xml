@@ -1,0 +1,56 @@
+<!-- login_fragment.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 主密码标题 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="主密码："
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 输入主密码的EditText -->
+        <EditText
+            android:id="@+id/login_input_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:hint="输入主密码"
+            android:inputType="textPassword" />
+
+        <!-- 隐藏/显示主密码按钮 -->
+        <Button
+            android:id="@+id/login_hide_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="🤓"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <!-- 提示信息 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="您的密码库已锁定，请验证您的主密码以继续"
+        android:textSize="16sp" />
+
+    <!-- 解锁按钮 -->
+    <Button
+        android:id="@+id/login_unlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="解锁" />
+
+</LinearLayout>
