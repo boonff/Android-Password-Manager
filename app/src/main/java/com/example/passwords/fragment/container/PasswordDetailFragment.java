@@ -1,4 +1,4 @@
-package com.example.passwords.fragment;
+package com.example.passwords.fragment.container;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

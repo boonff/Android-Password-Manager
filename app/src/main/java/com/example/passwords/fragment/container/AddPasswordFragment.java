@@ -1,5 +1,5 @@
 // AddPasswordFragment.java
-package com.example.passwords.fragment;
+package com.example.passwords.fragment.container;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,7 +40,7 @@ public class AddPasswordFragment extends Fragment {
         editTextUsername = view.findViewById(R.id.add_username);
         editTextPassword = view.findViewById(R.id.add_password);
         editTextUrl = view.findViewById(R.id.add_url);
-        buttonSave = view.findViewById(R.id.buttonSave);
+        buttonSave = view.findViewById(R.id.add_save);
 
         passwordRepository = new PasswordRepository(requireContext());
 
@@ -48,6 +48,7 @@ public class AddPasswordFragment extends Fragment {
 
         return view;
     }
+
 
     private void savePassword() {
         String name = editTextName.getText().toString().trim();

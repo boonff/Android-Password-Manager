@@ -1,4 +1,4 @@
-package com.example.passwords.fragment;
+package com.example.passwords.fragment.bar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.passwords.MainActivity;
 import com.example.passwords.R;
+import com.example.passwords.fragment.container.AddPasswordFragment;
+import com.example.passwords.fragment.container.PasswordListFragment;
 
 public class BottomBarFragment extends Fragment {
     public static BottomBarFragment newInstance() {
@@ -26,13 +28,6 @@ public class BottomBarFragment extends Fragment {
         Button addButton = view.findViewById(R.id.button_add_password);
         Button listButton = view.findViewById(R.id.button_password_list);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddPasswordFragment addPasswordFragment = AddPasswordFragment.newInstance();
-                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment);
-            }
-        });
 
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +36,15 @@ public class BottomBarFragment extends Fragment {
                 ((MainActivity) getActivity()).replaceContainerFragment(passwordListFragment);
             }
         });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                AddPasswordFragment addPasswordFragment = AddPasswordFragment.newInstance();
+                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment);
+            }
+        });
         return view;
     }
 }

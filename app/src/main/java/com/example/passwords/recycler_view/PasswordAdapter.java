@@ -2,7 +2,6 @@ package com.example.passwords.recycler_view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
-import com.example.passwords.fragment.PasswordDetailFragment;
+import com.example.passwords.fragment.container.PasswordDetailFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.passwords.fragment;
+package com.example.passwords.fragment.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.passwords.MainActivity;
 import com.example.passwords.R;
+import com.example.passwords.fragment.bar.BottomBarFragment;
+import com.example.passwords.fragment.container.PasswordListFragment;
 import com.example.passwords.key.PasswordUtil;
 
 public class LoginFragment extends Fragment {

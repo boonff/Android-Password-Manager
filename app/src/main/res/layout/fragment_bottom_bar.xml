@@ -4,20 +4,36 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    tools:context=".fragment.BottomBarFragment">
+    tools:context=".fragment.bar.BottomBarFragment">
 
     <Button
         android:id="@+id/button_password_list"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:textSize="32dp"
+        android:text="🛢"
+        />
+
+    <Button
+        android:id="@+id/add_button_generate_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:textSize="32dp"
+        android:text="🔄"
         />
 
     <Button
         android:id="@+id/button_add_password"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:textSize="32dp"
+        android:text="➕"
     />
 
 </LinearLayout>

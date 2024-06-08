@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".fragment.LoginFragment">
+    tools:context=".fragment.account.LoginFragment">
 
     <!-- 主密码标题 -->
     <TextView

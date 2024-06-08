@@ -67,6 +67,40 @@ public class PasswordRepository {
         return passwords;
     }
 
+    public List<Password> findPasswordByName(String findName){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String selection = DatabaseHelper.COLUMN_NAME + " LIKE ? OR " + DatabaseHelper.COLUMN_USERNAME + " LIKE ?";
+
+
+        Cursor cursor = db.query(
+                DatabaseHelper.TABLE_NAME,
+                null,
+                selection,
+                new String[]{"%" + findName + "%", "%" + findName + "%"},
+                null, null, null
+        );
+
+        List<Password> passwords = new ArrayList<>();
+        try {
+            SecretKey key = KeyStoreUtil.getKey();
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME));
+                String username = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USERNAME));
+                String encryptedPassword = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_URL));
+                String decryptedPassword = EncryptionUtil.decrypt(encryptedPassword, key);
+                passwords.add(new Password(id, name, username, decryptedPassword, url));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+        return passwords;
+    }
+
     public void clearAllPasswords() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseHelper.TABLE_NAME, null, null);
