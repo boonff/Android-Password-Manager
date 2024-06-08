@@ -5,9 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.passwords.database.DatabaseHelper;
-import com.example.passwords.database.Password;
+import com.example.passwords.key.EncryptionUtil;
+import com.example.passwords.key.KeyStoreUtil;
 
+import javax.crypto.SecretKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,11 @@ public class PasswordRepository {
 
     public PasswordRepository(Context context) {
         dbHelper = new DatabaseHelper(context);
+        try {
+            KeyStoreUtil.generateKey();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void insertPassword(String name, String username, String password, String url) {
@@ -23,7 +29,13 @@ public class PasswordRepository {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_NAME, name);
         values.put(DatabaseHelper.COLUMN_USERNAME, username);
-        values.put(DatabaseHelper.COLUMN_PASSWORD, password);
+        try {
+            SecretKey key = KeyStoreUtil.getKey();
+            String encryptedPassword = EncryptionUtil.encrypt(password, key);
+            values.put(DatabaseHelper.COLUMN_PASSWORD, encryptedPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         values.put(DatabaseHelper.COLUMN_URL, url);
         db.insert(DatabaseHelper.TABLE_NAME, null, values);
     }
@@ -36,15 +48,28 @@ public class PasswordRepository {
         );
 
         List<Password> passwords = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME));
-            String username = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USERNAME));
-            String password = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
-            String url = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_URL));
-            passwords.add(new Password(id, name, username, password, url));
+        try {
+            SecretKey key = KeyStoreUtil.getKey();
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME));
+                String username = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USERNAME));
+                String encryptedPassword = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_URL));
+                String decryptedPassword = EncryptionUtil.decrypt(encryptedPassword, key);
+                passwords.add(new Password(id, name, username, decryptedPassword, url));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return passwords;
+    }
+
+    public void clearAllPasswords() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(DatabaseHelper.TABLE_NAME, null, null);
+        db.close();
     }
 }

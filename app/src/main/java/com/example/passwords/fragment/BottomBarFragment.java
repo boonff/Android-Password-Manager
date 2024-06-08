@@ -29,18 +29,16 @@ public class BottomBarFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转到查询页面
                 AddPasswordFragment addPasswordFragment = AddPasswordFragment.newInstance();
-                ((MainActivity) getActivity()).replaceFragment(addPasswordFragment);
+                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment);
             }
         });
 
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转到查询页面
                 PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-                ((MainActivity) getActivity()).replaceFragment(passwordListFragment);
+                ((MainActivity) getActivity()).replaceContainerFragment(passwordListFragment);
             }
         });
 

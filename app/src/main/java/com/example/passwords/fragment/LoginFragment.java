@@ -79,23 +79,26 @@ public class LoginFragment extends Fragment {
 
         if (isPasswordCorrect(inputPassword)) {
             Toast.makeText(getContext(), "解锁成功", Toast.LENGTH_SHORT).show();
+            loadMainActivity();
 
-            // 登录成功后跳转到密码列表页面
-            PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-            ((MainActivity)getActivity()).replaceFragment(passwordListFragment);
-
-            // 添加底部导航栏
-            BottomBarFragment bottomBarFragment = BottomBarFragment.newInstance();
-            ((MainActivity)getActivity()).replaceFragment(bottomBarFragment);
         } else {
             Toast.makeText(getContext(), "密码错误，请重试", Toast.LENGTH_SHORT).show();
         }
     }
 
+        private void loadMainActivity(){
+        // 登录成功后跳转到密码列表页面
+        PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
+        ((MainActivity)getActivity()).replaceContainerFragment(passwordListFragment);
 
+        // 添加底部导航栏
+        BottomBarFragment bottomBarFragment = BottomBarFragment.newInstance();
+        ((MainActivity)getActivity()).replaceBottomFragment(bottomBarFragment);
+
+    }
 
     private void goToSignup() {
         SignupFragment signupFragment = SignupFragment.newInstance();
-        ((MainActivity)getActivity()).replaceFragment(signupFragment);
+        ((MainActivity)getActivity()).replaceContainerFragment(signupFragment);
     }
 }
