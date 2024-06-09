@@ -93,7 +93,6 @@ public class FindPasswordFragment extends Fragment {
             transaction.commit();
         });
 
-
         return view;
     }
 

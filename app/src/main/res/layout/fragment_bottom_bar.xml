@@ -7,7 +7,7 @@
     tools:context=".fragment.bar.BottomBarFragment">
 
     <Button
-        android:id="@+id/button_password_list"
+        android:id="@+id/bottom_bar_password_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -17,7 +17,7 @@
         />
 
     <Button
-        android:id="@+id/add_button_generate_password"
+        android:id="@+id/bottom_bar_generate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -27,7 +27,7 @@
         />
 
     <Button
-        android:id="@+id/button_add_password"
+        android:id="@+id/bottom_bar_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

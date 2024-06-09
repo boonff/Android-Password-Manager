@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.passwords.MainActivity;
 import com.example.passwords.R;
 import com.example.passwords.fragment.container.AddPasswordFragment;
+import com.example.passwords.fragment.container.GeneratePasswordFragment;
 import com.example.passwords.fragment.container.PasswordListFragment;
 
 public class BottomBarFragment extends Fragment {
@@ -25,26 +26,28 @@ public class BottomBarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bottom_bar, container, false);
 
-        Button addButton = view.findViewById(R.id.button_add_password);
-        Button listButton = view.findViewById(R.id.button_password_list);
+        Button addButton = view.findViewById(R.id.bottom_bar_add_button);
+        Button listButton = view.findViewById(R.id.bottom_bar_password_list);
+        Button generateButton = view.findViewById(R.id.bottom_bar_generate_button);
 
 
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        listButton.setOnClickListener(v -> {
                 PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-                ((MainActivity) getActivity()).replaceContainerFragment(passwordListFragment);
-            }
+                ((MainActivity) getActivity()).replaceContainerFragment(passwordListFragment, true);
+
         });
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+        generateButton.setOnClickListener(v -> {
+            GeneratePasswordFragment generatePasswrodFragment = GeneratePasswordFragment.newInstance();
+            ((MainActivity) getActivity()).replaceContainerFragment(generatePasswrodFragment, true);
+        });
 
+        addButton.setOnClickListener(v -> {
                 AddPasswordFragment addPasswordFragment = AddPasswordFragment.newInstance();
-                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment);
-            }
+                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment,true);
+
         });
+
         return view;
     }
 }

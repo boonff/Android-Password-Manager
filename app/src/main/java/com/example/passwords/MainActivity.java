@@ -27,22 +27,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 用于替换Fragment的方法
-    public void replaceContainerFragment(Fragment fragment) {
+    public void replaceContainerFragment(Fragment fragment, boolean unback) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null); // 将Fragment添加到回退栈中，以便后退时能返回上一个Fragment
+        if (unback) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 
-    public void replaceBottomFragment(Fragment fragment) {
+    public void replaceBottomFragment(Fragment fragment, boolean unback) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_bottom_bar, fragment);
-        transaction.addToBackStack(null);
+        if (unback) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
-
 
 
 }

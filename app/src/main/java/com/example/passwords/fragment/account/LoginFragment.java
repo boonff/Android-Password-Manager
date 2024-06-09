@@ -91,16 +91,16 @@ public class LoginFragment extends Fragment {
         private void loadMainActivity(){
         // 登录成功后跳转到密码列表页面
         PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-        ((MainActivity)getActivity()).replaceContainerFragment(passwordListFragment);
+        ((MainActivity)getActivity()).replaceContainerFragment(passwordListFragment, false);
 
         // 添加底部导航栏
         BottomBarFragment bottomBarFragment = BottomBarFragment.newInstance();
-        ((MainActivity)getActivity()).replaceBottomFragment(bottomBarFragment);
+        ((MainActivity)getActivity()).replaceBottomFragment(bottomBarFragment,false);
 
     }
 
     private void goToSignup() {
         SignupFragment signupFragment = SignupFragment.newInstance();
-        ((MainActivity)getActivity()).replaceContainerFragment(signupFragment);
+        ((MainActivity)getActivity()).replaceContainerFragment(signupFragment,true);
     }
 }
