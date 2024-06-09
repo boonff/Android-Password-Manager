@@ -1,4 +1,4 @@
-package com.example.passwords.fragment.account;
+package com.example.passwords.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.passwords.MainActivity;
 import com.example.passwords.R;
+import com.example.passwords.fragment.account.SignupFragment;
 import com.example.passwords.fragment.bar.BottomBarFragment;
 import com.example.passwords.fragment.container.PasswordListFragment;
 import com.example.passwords.key.PasswordUtil;

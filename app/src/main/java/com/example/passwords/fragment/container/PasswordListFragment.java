@@ -1,6 +1,5 @@
 package com.example.passwords.fragment.container;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.passwords.MainActivity;
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
 import com.example.passwords.database.PasswordRepository;

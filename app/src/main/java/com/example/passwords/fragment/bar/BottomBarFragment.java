@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.passwords.MainActivity;
+import com.example.passwords.activity.MainActivity;
 import com.example.passwords.R;
 import com.example.passwords.fragment.container.AddPasswordFragment;
 import com.example.passwords.fragment.container.GeneratePasswordFragment;
