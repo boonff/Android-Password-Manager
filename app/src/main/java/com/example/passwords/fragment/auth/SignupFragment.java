@@ -17,9 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.passwords.R;
 import com.example.passwords.activity.AuthActivity;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class SignupFragment extends Fragment {
+public class SignupFragment extends MyFragment {
 
     EditText inputEditText;
     Button hideButton;
@@ -101,6 +102,7 @@ public class SignupFragment extends Fragment {
     }
 
     private void goToLogin() {
-        ((AuthActivity) getActivity()).switchToLogin();
+        LoginFragment loginFragment = LoginFragment.newInstance();
+        switchFragment(fragmentManager, loginFragment, "login_fragment");
     }
 }

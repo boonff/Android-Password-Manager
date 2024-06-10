@@ -19,9 +19,10 @@ import android.widget.Toast;
 
 import com.example.passwords.R;
 import com.example.passwords.activity.AuthActivity;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class ChangePasswordFragment extends Fragment {
+public class ChangePasswordFragment extends MyFragment {
 
     private EditText oldPasswordEditText;
     private EditText newPasswordEditText;
@@ -117,6 +118,7 @@ public class ChangePasswordFragment extends Fragment {
         }
     }
     private void goToLogin() {
-        ((AuthActivity) getActivity()).switchToLogin();
+        LoginFragment loginFragment = LoginFragment.newInstance();
+        switchFragment(fragmentManager, loginFragment, "login_fragment");
     }
 }

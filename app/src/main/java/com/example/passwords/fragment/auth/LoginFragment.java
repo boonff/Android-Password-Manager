@@ -21,9 +21,10 @@ import android.widget.Toast;
 import com.example.passwords.R;
 import com.example.passwords.activity.AuthActivity;
 import com.example.passwords.activity.MainActivity;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends MyFragment {
 
     private EditText inputEditText;
     private Button hideButton;
@@ -109,7 +110,8 @@ public class LoginFragment extends Fragment {
             Toast.makeText(getContext(), "密码已存在，不能重复注册", Toast.LENGTH_SHORT).show();
             return;
         }
-        ((AuthActivity) getActivity()).switchToSignup();
+        SignupFragment signupFragment = SignupFragment.newInstance();
+        switchFragment(fragmentManager, signupFragment, "signup_fragment");
     }
     private void goToChange(){
         ((AuthActivity) getActivity()).switchToChange();
