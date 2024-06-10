@@ -8,15 +8,14 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.example.passwords.activity.MainActivity;
 import com.example.passwords.R;
 import com.example.passwords.fragment.container.AddPasswordFragment;
 import com.example.passwords.fragment.container.GeneratePasswordFragment;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.fragment.container.PasswordListFragment;
 
-public class BottomBarFragment extends Fragment {
+public class BottomBarFragment extends MyFragment {
     public static BottomBarFragment newInstance() {
         return new BottomBarFragment();
     }
@@ -33,18 +32,18 @@ public class BottomBarFragment extends Fragment {
 
         listButton.setOnClickListener(v -> {
                 PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-                ((MainActivity) getActivity()).replaceContainerFragment(passwordListFragment, true);
+                switchFragment(fragmentManager, passwordListFragment, "list_bottom_bar_fragment");
 
         });
 
         generateButton.setOnClickListener(v -> {
             GeneratePasswordFragment generatePasswrodFragment = GeneratePasswordFragment.newInstance();
-            ((MainActivity) getActivity()).replaceContainerFragment(generatePasswrodFragment, true);
+            switchFragment(fragmentManager, generatePasswrodFragment, "generate_bottom_bar_fragment");
         });
 
         addButton.setOnClickListener(v -> {
                 AddPasswordFragment addPasswordFragment = AddPasswordFragment.newInstance();
-                ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment,true);
+            switchFragment(fragmentManager, addPasswordFragment, "add_bottom_bar_fragment");
 
         });
 

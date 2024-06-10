@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
 import com.example.passwords.database.PasswordRepository;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.recycler_view.PasswordAdapter;
 
 import java.util.List;
 
-public class FindPasswordFragment extends Fragment {
+public class FindPasswordFragment extends MyFragment {
 
     private PasswordAdapter adapter;
     private RecyclerView recyclerView;
@@ -41,8 +41,11 @@ public class FindPasswordFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_find_password, container, false);
+        return inflater.inflate(R.layout.fragment_find_password, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.find_passwords);
         findEditText = view.findViewById(R.id.find_column_name);
         findButton = view.findViewById(R.id.find_button);
@@ -63,12 +66,11 @@ public class FindPasswordFragment extends Fragment {
                 adapter = new PasswordAdapter(getContext(), filteredPasswords, fragmentManager);
                 recyclerView.setAdapter(adapter);
                 // 检查结果列表是否为空
-                if(query.isEmpty()){
+                if (query.isEmpty()) {
                     view.findViewById(R.id.find_message).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.find_text).setVisibility(View.GONE);
                     view.findViewById(R.id.find_search_icon).setVisibility(View.VISIBLE);
-                }
-                else if (filteredPasswords.isEmpty()) {
+                } else if (filteredPasswords.isEmpty()) {
                     view.findViewById(R.id.find_message).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.find_text).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.find_search_icon).setVisibility(View.GONE);
@@ -77,7 +79,7 @@ public class FindPasswordFragment extends Fragment {
                     view.findViewById(R.id.find_text).setVisibility(View.GONE);
                     view.findViewById(R.id.find_search_icon).setVisibility(View.GONE);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -90,15 +92,6 @@ public class FindPasswordFragment extends Fragment {
 
             transaction.commit();
         });
-
-        return view;
     }
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // 获取父Fragment或者Activity的FragmentManager
-        fragmentManager = getParentFragmentManager();
-    }
 }

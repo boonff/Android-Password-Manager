@@ -73,11 +73,11 @@ public class ChangePasswordFragment extends Fragment {
 
     private void toggleNewPasswordVisibility(Button hideButton, EditText editText, int index) {
         if (isNewPasswordVisibles[index]) {
-            hideButton.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            hideNewPasswordButton.setText("😎");
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            hideButton.setText("😎");
         } else {
-            hideButton.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            hideNewPasswordButton.setText("🤓");
+            editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            hideButton.setText("🤓");
         }
         isNewPasswordVisibles[index] = !isNewPasswordVisibles[index];
         editText.setSelection(editText.getText().length());

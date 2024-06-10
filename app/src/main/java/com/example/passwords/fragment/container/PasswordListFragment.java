@@ -1,6 +1,5 @@
 package com.example.passwords.fragment.container;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +9,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
 import com.example.passwords.database.PasswordRepository;
+import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.recycler_view.PasswordAdapter;
 
 import java.util.List;
 
-public class PasswordListFragment extends Fragment {
+public class PasswordListFragment extends MyFragment {
 
     private PasswordAdapter adapter;
 
@@ -31,8 +28,6 @@ public class PasswordListFragment extends Fragment {
     TextView textView;
     Button findButton;
     private PasswordRepository passwordRepository;
-
-    private FragmentManager fragmentManager;
 
     public static PasswordListFragment newInstance(){
         return new PasswordListFragment();
@@ -64,21 +59,13 @@ public class PasswordListFragment extends Fragment {
 
         findButton.setOnClickListener(v -> {
             FindPasswordFragment findPasswordFragment = FindPasswordFragment.newInstance();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            // 替换当前容器中的 Fragment 为 FindPasswordFragment
-            transaction.replace(R.id.fragment_main_container, findPasswordFragment);
-            transaction.commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_main_container, findPasswordFragment)
+                    .addToBackStack(null)
+                    .commit();
 
         });
 
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // 获取父Fragment或者Activity的FragmentManager
-        fragmentManager = getParentFragmentManager();
-    }
-
 
 }

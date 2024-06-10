@@ -48,7 +48,6 @@ public class LoginFragment extends Fragment {
         inputEditText = view.findViewById(R.id.login_input_password);
         hideButton = view.findViewById(R.id.login_hide_password);
         unlockButton = view.findViewById(R.id.login_unlock);
-        signupButton = view.findViewById(R.id.login_signup);
         topBarTextView = view.findViewById(R.id.top_bar_text);
         changeButton = view.findViewById(R.id.login_change_password);
 
@@ -56,7 +55,6 @@ public class LoginFragment extends Fragment {
 
         hideButton.setOnClickListener(v -> togglePasswordVisibility());
         unlockButton.setOnClickListener(v -> unlockPassword());
-        signupButton.setOnClickListener(v -> goToSignup());
         changeButton.setOnClickListener(v -> goToChange());
         // 如果密码不存在，跳转注册页面
         checkPasswordHashExists();

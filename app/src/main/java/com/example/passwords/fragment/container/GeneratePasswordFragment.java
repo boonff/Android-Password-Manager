@@ -1,13 +1,11 @@
 package com.example.passwords.fragment.container;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.StatFs;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.passwords.R;
-import com.example.passwords.activity.MainActivity;
+import com.example.passwords.fragment.MyFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,10 +127,7 @@ public class GeneratePasswordFragment extends MyFragment {
                 password
         );
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_main_container, addPasswordFragment)
-                .addToBackStack(null)
-                .commit();
+        switchFragment(fragmentManager, addPasswordFragment, "generate_fragment");
     }
 
     private void selectPasswordToEdit() {

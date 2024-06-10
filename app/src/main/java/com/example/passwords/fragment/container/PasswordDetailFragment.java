@@ -15,14 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.passwords.activity.MainActivity;
 import com.example.passwords.database.Password;
 import com.example.passwords.R;
+import com.example.passwords.fragment.MyFragment;
 
 public class PasswordDetailFragment extends MyFragment {
     private static final String NAME = "name";
@@ -104,10 +100,7 @@ public class PasswordDetailFragment extends MyFragment {
                 textViewPassword.getText().toString(),
                 textViewUrl.getText().toString()
         );
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_main_container, editPasswordFragment)
-                .addToBackStack(null)
-                .commit();
+        switchFragment(fragmentManager, editPasswordFragment, "detail_fragment");
     }
 
     private void getPasswordFromArgs() {
