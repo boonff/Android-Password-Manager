@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.passwords.R;
 import com.example.passwords.activity.MainActivity;
 import com.example.passwords.database.PasswordRepository;
 
-public class AddPasswordFragment extends Fragment {
+public class AddPasswordFragment extends MyFragment {
 
     protected EditText editTextName;
     protected EditText editTextUsername;
@@ -100,7 +100,10 @@ public class AddPasswordFragment extends Fragment {
                 editTextUrl.getText().toString()
         );
 
-        ((MainActivity) getActivity()).replaceContainerFragment(generatePasswordFragment, true);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_main_container, generatePasswordFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void togglePasswordVisibility() {

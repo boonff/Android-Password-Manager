@@ -24,6 +24,7 @@ public class PasswordRepository {
         }
     }
 
+
     public void insertPassword(String name, String username, String password, String url) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -133,7 +134,24 @@ public class PasswordRepository {
         }
     }
 
+    public void deletePassword(Password password) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String selection = DatabaseHelper.COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(password.getId())};
 
+        try {
+            int rowsDeleted = db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
+            if (rowsDeleted == 0) {
+                System.out.println("No rows deleted, check the id.");
+            } else {
+                System.out.println("Delete successful.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close(); // 确保数据库连接在操作后关闭
+        }
+    }
 
     public void clearAllPasswords() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

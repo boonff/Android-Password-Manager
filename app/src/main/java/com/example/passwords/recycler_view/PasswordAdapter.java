@@ -1,6 +1,8 @@
 package com.example.passwords.recycler_view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
+import com.example.passwords.database.PasswordRepository;
 import com.example.passwords.fragment.container.PasswordDetailFragment;
 
 import java.util.List;
@@ -66,6 +69,31 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
                         .replace(R.id.fragment_main_container, fragment)
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        // 设置列表项的长按监听器
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                // 显示删除对话框
+                new AlertDialog.Builder(context)
+                        .setTitle("删除密码")
+                        .setMessage("你确定要删除这个密码吗？")
+                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 删除密码
+                                PasswordRepository passwordRepository = new PasswordRepository(context);
+                                passwordRepository.deletePassword(password);
+                                passwords.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, passwords.size());
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+                return true;
             }
         });
 

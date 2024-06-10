@@ -30,14 +30,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class GeneratePasswordFragment extends Fragment {
-
-
-    private static final String BUTTON_TYPE = "button_type";
-    private static final String NAME = "name";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String URL = "url";
+public class GeneratePasswordFragment extends MyFragment {
 
     TextView topBarText;
     TextView generatedPasswordTextView;
@@ -60,6 +53,19 @@ public class GeneratePasswordFragment extends Fragment {
         GeneratePasswordFragment fragment = new GeneratePasswordFragment();
         Bundle args = new Bundle();
         args.putString(BUTTON_TYPE, buttonType);
+        args.putString(NAME, name);
+        args.putString(USERNAME, username);
+        args.putString(PASSWORD, password);
+        args.putString(URL, url);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static GeneratePasswordFragment newInstance(String buttonType,int id, String name, String username, String password, String url) {
+        GeneratePasswordFragment fragment = new GeneratePasswordFragment();
+        Bundle args = new Bundle();
+        args.putString(BUTTON_TYPE, buttonType);
+        args.putInt(ID, id);
         args.putString(NAME, name);
         args.putString(USERNAME, username);
         args.putString(PASSWORD, password);
@@ -123,8 +129,10 @@ public class GeneratePasswordFragment extends Fragment {
                 password
         );
 
-
-        ((MainActivity) getActivity()).replaceContainerFragment(addPasswordFragment, true);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_main_container, addPasswordFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void selectPasswordToEdit() {
@@ -132,13 +140,17 @@ public class GeneratePasswordFragment extends Fragment {
         if (getArguments() == null)
             return;
         EditPasswordFragment editPasswordFragment = EditPasswordFragment.newInstance(
+                getArguments().getInt(ID),
                 getArguments().getString(NAME),
                 getArguments().getString(USERNAME),
                 getArguments().getString(URL),
                 password
         );
 
-        ((MainActivity) getActivity()).replaceContainerFragment(editPasswordFragment, true);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_main_container, editPasswordFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void createAddButtonView(View view) {

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_main_container, fragment);
-        if (false) {
+        if (addToBackStack) {
             transaction.addToBackStack(null);
         }
         transaction.commit();
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_bottom_bar, fragment);
-        if (false) {
+        if (addToBackStack) {
             transaction.addToBackStack(null);
         }
         transaction.commit();

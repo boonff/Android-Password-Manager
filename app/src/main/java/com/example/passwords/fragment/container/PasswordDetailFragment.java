@@ -17,13 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.passwords.activity.MainActivity;
 import com.example.passwords.database.Password;
 import com.example.passwords.R;
 
-public class PasswordDetailFragment extends Fragment {
+public class PasswordDetailFragment extends MyFragment {
     private static final String NAME = "name";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
@@ -91,15 +92,22 @@ public class PasswordDetailFragment extends Fragment {
         editButton.setOnClickListener(v -> goto_Edit());
     }
 
+
+
     private void goto_Edit() {
+        int id = Integer.parseInt(textViewID.getText().toString());
+
         EditPasswordFragment editPasswordFragment = EditPasswordFragment.newInstance(
-                textViewID.getText().toString(),
+                id,
                 textViewName.getText().toString(),
                 textViewUsername.getText().toString(),
                 textViewPassword.getText().toString(),
                 textViewUrl.getText().toString()
         );
-        ((MainActivity) getActivity()).replaceContainerFragment(editPasswordFragment, true);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_main_container, editPasswordFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void getPasswordFromArgs() {
