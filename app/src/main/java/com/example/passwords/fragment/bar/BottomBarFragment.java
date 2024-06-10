@@ -28,7 +28,7 @@ public class BottomBarFragment extends Fragment {
 
         Button addButton = view.findViewById(R.id.bottom_bar_add_button);
         Button listButton = view.findViewById(R.id.bottom_bar_password_list);
-        Button generateButton = view.findViewById(R.id.bottom_bar_generate_button);
+        Button generateButton = view.findViewById(R.id.edit_generate_button);
 
 
         listButton.setOnClickListener(v -> {

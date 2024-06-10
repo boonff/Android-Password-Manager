@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -20,14 +23,13 @@ import com.example.passwords.activity.AuthActivity;
 import com.example.passwords.activity.MainActivity;
 import com.example.passwords.key.PasswordUtil;
 
-import org.w3c.dom.Text;
-
 public class LoginFragment extends Fragment {
 
     private EditText inputEditText;
     private Button hideButton;
     private Button unlockButton;
     private Button signupButton;
+    private Button changeButton;
     private TextView topBarTextView;
     private boolean isPasswordVisible = false;
 
@@ -38,24 +40,26 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_login, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         inputEditText = view.findViewById(R.id.login_input_password);
         hideButton = view.findViewById(R.id.login_hide_password);
         unlockButton = view.findViewById(R.id.login_unlock);
         signupButton = view.findViewById(R.id.login_signup);
         topBarTextView = view.findViewById(R.id.top_bar_text);
+        changeButton = view.findViewById(R.id.login_change_password);
 
         topBarTextView.setText("登录");
 
         hideButton.setOnClickListener(v -> togglePasswordVisibility());
-
         unlockButton.setOnClickListener(v -> unlockPassword());
-
         signupButton.setOnClickListener(v -> goToSignup());
-
-        return view;
+        changeButton.setOnClickListener(v -> goToChange());
+        // 如果密码不存在，跳转注册页面
+        checkPasswordHashExists();
     }
 
     private void togglePasswordVisibility() {
@@ -100,6 +104,24 @@ public class LoginFragment extends Fragment {
     }
 
     private void goToSignup() {
+        SharedPreferences sharedPref = getContext().getSharedPreferences("password_prefs", Context.MODE_PRIVATE);
+        String storedPassword = sharedPref.getString("main_password_hash", null);
+
+        if (storedPassword != null) {
+            Toast.makeText(getContext(), "密码已存在，不能重复注册", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ((AuthActivity) getActivity()).switchToSignup();
+    }
+    private void goToChange(){
+        ((AuthActivity) getActivity()).switchToChange();
+    }
+
+    private void checkPasswordHashExists() {
+        SharedPreferences sharedPref = getContext().getSharedPreferences("password_prefs", Context.MODE_PRIVATE);
+        String storedPassword = sharedPref.getString("main_password_hash", null);
+        if (storedPassword == null) {
+            goToSignup();
+        }
     }
 }

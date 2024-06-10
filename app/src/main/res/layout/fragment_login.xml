@@ -1,101 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".fragment.auth.LoginFragment">
 
     <include
         android:id="@+id/login_top_bar"
         layout="@layout/fragment_child_top_bar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- 主密码标题 -->
-        <TextView
-            android:id="@+id/login_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="主密码："
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!-- 主密码标题 -->
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="主密码："
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_top_bar" />
 
-        <!-- 输入主密码和隐藏/显示按钮 -->
-        <EditText
-            android:id="@+id/login_input_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="输入主密码"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toStartOf="@+id/login_hide_password"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_title"
-            app:layout_constraintWidth_percent="0.7" />
+    <!-- 输入主密码和隐藏/显示按钮 -->
+    <EditText
+        android:id="@+id/login_input_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="输入主密码"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/login_hide_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_title"
+        app:layout_constraintWidth_percent="0.7" />
 
-        <Button
-            android:id="@+id/login_hide_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="😎"
-            android:textSize="32sp"
-            app:layout_constraintBottom_toBottomOf="@id/login_input_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/login_input_password"
-            app:layout_constraintTop_toTopOf="@id/login_input_password"
-            app:layout_constraintWidth_percent="0.3" />
+    <Button
+        android:id="@+id/login_hide_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="😎"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@id/login_input_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/login_input_password"
+        app:layout_constraintTop_toTopOf="@id/login_input_password"
+        app:layout_constraintWidth_percent="0.3" />
 
-        <!-- 提示信息 -->
-        <TextView
-            android:id="@+id/login_hint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="您的密码库已锁定，请验证您的主密码以继续"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_input_password"
-            app:layout_constraintWidth_percent="1" />
+    <!-- 提示信息 -->
+    <TextView
+        android:id="@+id/login_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="您的密码库已锁定，请验证您的主密码以继续"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_input_password"
+        app:layout_constraintWidth_percent="1" />
 
-        <!-- 解锁按钮 -->
-        <Button
-            android:id="@+id/login_unlock"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="解锁"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_hint"
-            app:layout_constraintWidth_percent="1" />
+    <!-- 解锁按钮 -->
+    <Button
+        android:id="@+id/login_unlock"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="解锁"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_hint"
+        app:layout_constraintWidth_percent="1" />
 
-        <!-- 修改密码和注册按钮 -->
-        <Button
-            android:id="@+id/login_change_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="修改密码"
-            app:layout_constraintEnd_toStartOf="@+id/login_signup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_unlock"
-            app:layout_constraintWidth_percent="0.5" />
+    <!-- 修改密码和注册按钮 -->
+    <Button
+        android:id="@+id/login_change_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="修改密码"
+        app:layout_constraintEnd_toStartOf="@+id/login_signup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_unlock"
+        app:layout_constraintWidth_percent="0.5" />
 
-        <Button
-            android:id="@+id/login_signup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="注册"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/login_change_password"
-            app:layout_constraintTop_toBottomOf="@id/login_unlock"
-            app:layout_constraintWidth_percent="0.5" />
+    <Button
+        android:id="@+id/login_signup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/login_change_password"
+        app:layout_constraintTop_toBottomOf="@id/login_unlock"
+        app:layout_constraintWidth_percent="0.5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

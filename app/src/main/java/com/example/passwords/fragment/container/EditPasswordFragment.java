@@ -1,4 +1,3 @@
-// AddPasswordFragment.java
 package com.example.passwords.fragment.container;
 
 import android.os.Bundle;
@@ -8,92 +7,80 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.passwords.R;
 import com.example.passwords.activity.MainActivity;
 import com.example.passwords.database.PasswordRepository;
 
-public class AddPasswordFragment extends Fragment {
-
-    protected EditText editTextName;
-    protected EditText editTextUsername;
-    protected EditText editTextPassword;
-    protected EditText editTextUrl;
-    protected Button buttonSave;
-    protected Button hideButton;
-    protected Button generateButton;
-    protected PasswordRepository passwordRepository;
-    protected boolean isPasswordVisible;
-    protected static final String PASSWORD = "password";
-    protected static final String NAME = "name";
-    protected static final String USERNAME = "username";
-    protected static final String URL = "url";
-
-    public static AddPasswordFragment newInstance() {
-        return new AddPasswordFragment();
+public class EditPasswordFragment extends AddPasswordFragment {
+    public static EditPasswordFragment newInstance() {
+        return new EditPasswordFragment();
     }
 
-    public static AddPasswordFragment newInstance(String name, String username, String url, String password) {
-        AddPasswordFragment addPasswordFragment = new AddPasswordFragment();
+    public static EditPasswordFragment newInstance(String id, String name, String username, String url, String password) {
+        EditPasswordFragment editPasswordFragment = new EditPasswordFragment();
         Bundle args = new Bundle();
-        args.putString(NAME, name);
-        args.putString(USERNAME, username);
-        args.putString(URL, url);
-        args.putString(PASSWORD, password);
-        addPasswordFragment.setArguments(args);
-        return addPasswordFragment;
+        args.putInt("id", Integer.parseInt(id));
+        args.putString("name", name);
+        args.putString("username", username);
+        args.putString("url", url);
+        args.putString("password", password);
+        editPasswordFragment.setArguments(args);
+        return editPasswordFragment;
+    }
+
+    public static EditPasswordFragment newInstance(String name, String username, String url, String password) {
+        EditPasswordFragment editPasswordFragment = new EditPasswordFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        args.putString("username", username);
+        args.putString("url", url);
+        args.putString("password", password);
+        editPasswordFragment.setArguments(args);
+        return editPasswordFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_password, container, false);
-
+        return inflater.inflate(R.layout.fragment_edit_password, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        editTextName = view.findViewById(R.id.add_name);
-        editTextUsername = view.findViewById(R.id.add_username);
-        editTextPassword = view.findViewById(R.id.add_password);
-        editTextUrl = view.findViewById(R.id.add_url);
-        buttonSave = view.findViewById(R.id.add_save);
-        hideButton = view.findViewById(R.id.add_button_hide_password);
-        generateButton = view.findViewById(R.id.add_generate_button);
+        editTextName = view.findViewById(R.id.edit_name);
+        editTextUsername = view.findViewById(R.id.edit_username);
+        editTextPassword = view.findViewById(R.id.edit_password);
+        editTextUrl = view.findViewById(R.id.edit_url);
+        buttonSave = view.findViewById(R.id.edit_save);
+        hideButton = view.findViewById(R.id.edit_button_hide_password);
+        generateButton = view.findViewById(R.id.edit_generate_button);
 
 
         buttonSave.setOnClickListener(v -> savePassword());
         hideButton.setOnClickListener(v -> togglePasswordVisibility());
         generateButton.setOnClickListener(v -> goto_generate());
+
         // 获取并设置传递过来的值
         getPasswordFromArgs();
     }
 
-
-    public void setPassword(String password) {
-        editTextPassword.setText(password);
-    }
-
-    private void getPasswordFromArgs(){
-
+    private void getPasswordFromArgs() {
         if (getArguments() != null) {
-            editTextName.setText(getArguments().getString(NAME));
-            editTextUsername.setText(getArguments().getString(USERNAME));
-            editTextPassword.setText(getArguments().getString(PASSWORD));
-            editTextUrl.setText(getArguments().getString(URL));
+            editTextName.setText(getArguments().getString("name"));
+            editTextUsername.setText(getArguments().getString("username"));
+            editTextPassword.setText(getArguments().getString("password"));
+            editTextUrl.setText(getArguments().getString("url"));
         }
     }
 
     private void goto_generate() {
         GeneratePasswordFragment generatePasswordFragment = GeneratePasswordFragment.newInstance(
-                "add",
+                "edit",
                 editTextName.getText().toString(),
                 editTextUsername.getText().toString(),
                 editTextPassword.getText().toString(),
@@ -117,25 +104,29 @@ public class AddPasswordFragment extends Fragment {
 
     private void savePassword() {
         passwordRepository = new PasswordRepository(requireContext());
+        int id;
+        if (getArguments() != null)
+            id = getArguments().getInt("id");
+        else return;
+
         String name = editTextName.getText().toString().trim();
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String url = editTextUrl.getText().toString().trim();
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(url)) {
-            Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "需要填入所有参数", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        passwordRepository.insertPassword(name, username, password, url);
-        Toast.makeText(requireContext(), "Password saved", Toast.LENGTH_SHORT).show();
-        clearFields();
-    }
-
-    private void clearFields() {
-        editTextName.setText("");
-        editTextUsername.setText("");
-        editTextPassword.setText("");
-        editTextUrl.setText("");
+        passwordRepository.updatePasswordById(id, name, username, password, url);
+        PasswordDetailFragment passwordDetailFragment = PasswordDetailFragment.newInstance(
+                name,
+                username,
+                password,
+                url
+        );
+        ((MainActivity) getActivity()).replaceContainerFragment(passwordDetailFragment, true);
+        Toast.makeText(requireContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
     }
 }

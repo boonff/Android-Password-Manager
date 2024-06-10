@@ -56,7 +56,7 @@ public class SignupFragment extends Fragment {
         return view;
     }
 
-    private void togglePasswordVisibility(Button hideButton, EditText editText, int index) {
+    protected void togglePasswordVisibility(Button hideButton, EditText editText, int index) {
         if (isPasswordVisible[index]) {
             editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
             hideButton.setText("😎");
@@ -86,6 +86,7 @@ public class SignupFragment extends Fragment {
         savePassword(inputPassword);
 
         Toast.makeText(getContext(), "密码创建成功", Toast.LENGTH_SHORT).show();
+        goToLogin();
     }
 
     private void savePassword(String password) {

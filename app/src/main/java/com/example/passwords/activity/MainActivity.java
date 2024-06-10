@@ -8,8 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.passwords.R;
 import com.example.passwords.fragment.bar.BottomBarFragment;
-import com.example.passwords.fragment.bar.TopBarGeneratePasswordFragment;
-import com.example.passwords.fragment.container.GeneratePasswordFragment;
 import com.example.passwords.fragment.container.PasswordListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_main_container, fragment);
-        if (addToBackStack) {
+        if (false) {
             transaction.addToBackStack(null);
         }
         transaction.commit();
@@ -47,10 +45,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_bottom_bar, fragment);
-        if (addToBackStack) {
+        if (false) {
             transaction.addToBackStack(null);
         }
         transaction.commit();
     }
+
 
 }

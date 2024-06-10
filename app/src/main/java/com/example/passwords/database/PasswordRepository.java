@@ -101,6 +101,40 @@ public class PasswordRepository {
         return passwords;
     }
 
+    public void updatePasswordById(int id, String name, String username, String password, String url) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_NAME, name);
+        values.put(DatabaseHelper.COLUMN_USERNAME, username);
+        try {
+            SecretKey key = KeyStoreUtil.getKey();
+            String encryptedPassword = EncryptionUtil.encrypt(password, key);
+            values.put(DatabaseHelper.COLUMN_PASSWORD, encryptedPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return; // 如果加密失败，直接返回
+        }
+        values.put(DatabaseHelper.COLUMN_URL, url);
+
+        String selection = DatabaseHelper.COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        try {
+            int rowsUpdated = db.update(DatabaseHelper.TABLE_NAME, values, selection, selectionArgs);
+            if (rowsUpdated == 0) {
+                System.out.println("No rows updated, check the id.");
+            } else {
+                System.out.println("Update successful.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close(); // 确保数据库连接在操作后关闭
+        }
+    }
+
+
+
     public void clearAllPasswords() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseHelper.TABLE_NAME, null, null);

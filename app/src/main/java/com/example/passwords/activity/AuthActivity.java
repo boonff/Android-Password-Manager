@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.passwords.R;
+import com.example.passwords.fragment.auth.ChangePasswordFragment;
 import com.example.passwords.fragment.auth.LoginFragment;
 import com.example.passwords.fragment.auth.SignupFragment;
 
@@ -41,11 +42,18 @@ public class AuthActivity extends AppCompatActivity {
         loadFragment(LoginFragment.newInstance(), addToBackStack);
     }
 
+    public void switchToChange(boolean addToBackStack) {
+        loadFragment(ChangePasswordFragment.newInstance(), addToBackStack);
+    }
+
     public void switchToSignup() {
         loadFragment(SignupFragment.newInstance(), true);
     }
 
     public void switchToLogin() {
         loadFragment(LoginFragment.newInstance(), true);
+    }
+    public void switchToChange() {
+        loadFragment(ChangePasswordFragment.newInstance(), true);
     }
 }

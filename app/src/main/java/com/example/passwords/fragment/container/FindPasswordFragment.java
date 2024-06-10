@@ -87,8 +87,6 @@ public class FindPasswordFragment extends Fragment {
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             // 替换当前容器中的 Fragment 为 FindPasswordFragment
             transaction.replace(R.id.fragment_main_container, passwordListFragment);
-            // 添加到返回栈（可选）
-            transaction.addToBackStack(null);
 
             transaction.commit();
         });

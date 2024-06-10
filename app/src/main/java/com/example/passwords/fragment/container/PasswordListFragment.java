@@ -40,11 +40,13 @@ public class PasswordListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_password_list, container, false);
+        return inflater.inflate(R.layout.fragment_password_list, container, false);
+    }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.list_passwords);
-        textView = view.findViewById(R.id.password_count);
+        textView = view.findViewById(R.id.list_password_count);
         findButton = view.findViewById(R.id.list_go_find);
         // 初始化RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,14 +66,10 @@ public class PasswordListFragment extends Fragment {
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             // 替换当前容器中的 Fragment 为 FindPasswordFragment
             transaction.replace(R.id.fragment_main_container, findPasswordFragment);
-            // 添加到返回栈（可选）
-            transaction.addToBackStack(null);
-
             transaction.commit();
 
         });
 
-        return view;
     }
 
     @Override
@@ -80,4 +78,6 @@ public class PasswordListFragment extends Fragment {
         // 获取父Fragment或者Activity的FragmentManager
         fragmentManager = getParentFragmentManager();
     }
+
+
 }
