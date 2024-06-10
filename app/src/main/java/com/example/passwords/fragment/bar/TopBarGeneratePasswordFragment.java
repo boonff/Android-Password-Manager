@@ -1,5 +1,6 @@
 package com.example.passwords.fragment.bar;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,21 +25,26 @@ public class TopBarGeneratePasswordFragment extends Fragment {
 
     private static final String NAME = "name";
     private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     private static final String URL = "url";
+
 
     public static TopBarGeneratePasswordFragment newInstance(String name, String username, String url) {
         TopBarGeneratePasswordFragment topBarGeneratePasswordFragment = new TopBarGeneratePasswordFragment();
         Bundle args = new Bundle();
         args.putString(NAME, name);
-        args.putString(USERNAME, username);
+        args.putString(PASSWORD, username);
         args.putString(URL, url);
         topBarGeneratePasswordFragment.setArguments(args);
         return topBarGeneratePasswordFragment;
     }
 
+
+
     public static TopBarGeneratePasswordFragment newInstance() {
         return new TopBarGeneratePasswordFragment();
     }
+
 
     @Nullable
     @Override
@@ -76,7 +82,7 @@ public class TopBarGeneratePasswordFragment extends Fragment {
             );
 
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, addPasswordFragment);
+            transaction.replace(R.id.fragment_main_container, addPasswordFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }catch (Exception e){

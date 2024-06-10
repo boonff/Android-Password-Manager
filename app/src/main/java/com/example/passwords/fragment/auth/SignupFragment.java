@@ -1,4 +1,4 @@
-package com.example.passwords.fragment.account;
+package com.example.passwords.fragment.auth;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.passwords.R;
+import com.example.passwords.activity.AuthActivity;
 import com.example.passwords.key.PasswordUtil;
 
 public class SignupFragment extends Fragment {
@@ -24,6 +26,8 @@ public class SignupFragment extends Fragment {
     EditText re_inputEditText;
     Button re_hideButton;
     Button confirmButton;
+    Button loginButton;
+    TextView topBarTextView;
     private boolean[] isPasswordVisible = {false, false};
 
     public static SignupFragment newInstance() {
@@ -39,16 +43,20 @@ public class SignupFragment extends Fragment {
         re_inputEditText = view.findViewById(R.id.signup_re_input_password);
         re_hideButton = view.findViewById(R.id.signup_re_hide_password);
         confirmButton = view.findViewById(R.id.signup_confirm);
+        loginButton = view.findViewById(R.id.signup_login);
+        topBarTextView = view.findViewById(R.id.top_bar_text);
 
-        hideButton.setOnClickListener(v -> togglePasswordVisibility(inputEditText, 0));
-        re_hideButton.setOnClickListener(v -> togglePasswordVisibility(re_inputEditText, 1));
+        topBarTextView.setText("注册");
 
+        hideButton.setOnClickListener(v -> togglePasswordVisibility(hideButton, inputEditText, 0));
+        re_hideButton.setOnClickListener(v -> togglePasswordVisibility(re_hideButton, re_inputEditText, 1));
         confirmButton.setOnClickListener(v -> registerUser());
+        loginButton.setOnClickListener(v -> goToLogin());
 
         return view;
     }
 
-    private void togglePasswordVisibility(EditText editText, int index) {
+    private void togglePasswordVisibility(Button hideButton, EditText editText, int index) {
         if (isPasswordVisible[index]) {
             editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
             hideButton.setText("😎");
@@ -89,5 +97,9 @@ public class SignupFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("main_password_hash", hashedPassword);
         editor.apply();
+    }
+
+    private void goToLogin() {
+        ((AuthActivity) getActivity()).switchToLogin();
     }
 }

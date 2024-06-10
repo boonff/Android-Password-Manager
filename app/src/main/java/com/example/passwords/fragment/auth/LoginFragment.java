@@ -1,6 +1,7 @@
-package com.example.passwords.activity;
+package com.example.passwords.fragment.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -11,13 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.passwords.R;
-import com.example.passwords.fragment.account.SignupFragment;
-import com.example.passwords.fragment.bar.BottomBarFragment;
-import com.example.passwords.fragment.container.PasswordListFragment;
+import com.example.passwords.activity.AuthActivity;
+import com.example.passwords.activity.MainActivity;
 import com.example.passwords.key.PasswordUtil;
+
+import org.w3c.dom.Text;
 
 public class LoginFragment extends Fragment {
 
@@ -25,6 +28,7 @@ public class LoginFragment extends Fragment {
     private Button hideButton;
     private Button unlockButton;
     private Button signupButton;
+    private TextView topBarTextView;
     private boolean isPasswordVisible = false;
 
     public static LoginFragment newInstance() {
@@ -41,7 +45,9 @@ public class LoginFragment extends Fragment {
         hideButton = view.findViewById(R.id.login_hide_password);
         unlockButton = view.findViewById(R.id.login_unlock);
         signupButton = view.findViewById(R.id.login_signup);
+        topBarTextView = view.findViewById(R.id.top_bar_text);
 
+        topBarTextView.setText("登录");
 
         hideButton.setOnClickListener(v -> togglePasswordVisibility());
 
@@ -82,25 +88,18 @@ public class LoginFragment extends Fragment {
         if (isPasswordCorrect(inputPassword)) {
             Toast.makeText(getContext(), "解锁成功", Toast.LENGTH_SHORT).show();
             loadMainActivity();
-
         } else {
             Toast.makeText(getContext(), "密码错误，请重试", Toast.LENGTH_SHORT).show();
         }
     }
 
-        private void loadMainActivity(){
-        // 登录成功后跳转到密码列表页面
-        PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-        ((MainActivity)getActivity()).replaceContainerFragment(passwordListFragment, false);
-
-        // 添加底部导航栏
-        BottomBarFragment bottomBarFragment = BottomBarFragment.newInstance();
-        ((MainActivity)getActivity()).replaceBottomFragment(bottomBarFragment,false);
-
+    private void loadMainActivity() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish(); // Finish AuthActivity so the user cannot go back to it.
     }
 
     private void goToSignup() {
-        SignupFragment signupFragment = SignupFragment.newInstance();
-        ((MainActivity)getActivity()).replaceContainerFragment(signupFragment,true);
+        ((AuthActivity) getActivity()).switchToSignup();
     }
 }

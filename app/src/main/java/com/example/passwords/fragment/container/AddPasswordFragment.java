@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.passwords.R;
 import com.example.passwords.database.PasswordRepository;
 import com.example.passwords.fragment.bar.TopBarGeneratePasswordFragment;
-import com.example.passwords.fragment.navigation.FragmentNavigationListener;
 
 public class AddPasswordFragment extends Fragment {
 
@@ -38,7 +37,6 @@ public class AddPasswordFragment extends Fragment {
     private static final String NAME = "name";
     private static final String USERNAME = "username";
     private static final String URL = "url";
-    private FragmentNavigationListener navigationListener;
 
     public static AddPasswordFragment newInstance() {
         return new AddPasswordFragment();
@@ -53,22 +51,6 @@ public class AddPasswordFragment extends Fragment {
         args.putString(PASSWORD, password);
         addPasswordFragment.setArguments(args);
         return addPasswordFragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof FragmentNavigationListener) {
-            navigationListener = (FragmentNavigationListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement FragmentNavigationListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        navigationListener = null;
     }
     @Nullable
     @Override

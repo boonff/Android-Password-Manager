@@ -63,7 +63,7 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
 
                 // 启动新的 Fragment 来显示详细信息
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.fragment_main_container, fragment)
                         .addToBackStack(null)
                         .commit();
             }
