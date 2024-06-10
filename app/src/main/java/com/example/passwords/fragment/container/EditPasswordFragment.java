@@ -19,29 +19,30 @@ import com.example.passwords.database.PasswordRepository;
 
 public class EditPasswordFragment extends AddPasswordFragment {
     TextView textViewID;
+
     public static EditPasswordFragment newInstance() {
         return new EditPasswordFragment();
     }
 
-    public static EditPasswordFragment newInstance(int id, String name, String username, String url, String password) {
+    public static EditPasswordFragment newInstance(int id, String name, String username, String password, String url) {
         EditPasswordFragment editPasswordFragment = new EditPasswordFragment();
         Bundle args = new Bundle();
         args.putInt(ID, id);
         args.putString(NAME, name);
         args.putString(USERNAME, username);
-        args.putString(URL, url);
         args.putString(PASSWORD, password);
+        args.putString(URL, url);
         editPasswordFragment.setArguments(args);
         return editPasswordFragment;
     }
 
-    public static EditPasswordFragment newInstance(String name, String username, String url, String password) {
+    public static EditPasswordFragment newInstance(String name, String username, String password, String url) {
         EditPasswordFragment editPasswordFragment = new EditPasswordFragment();
         Bundle args = new Bundle();
         args.putString(NAME, name);
         args.putString(USERNAME, username);
-        args.putString(URL, url);
         args.putString(PASSWORD, password);
+        args.putString(URL, url);
         editPasswordFragment.setArguments(args);
         return editPasswordFragment;
     }
@@ -62,7 +63,6 @@ public class EditPasswordFragment extends AddPasswordFragment {
         buttonSave = view.findViewById(R.id.edit_save);
         hideButton = view.findViewById(R.id.edit_button_hide_password);
         generateButton = view.findViewById(R.id.edit_generate_button);
-
 
 
         buttonSave.setOnClickListener(v -> savePassword());
@@ -127,11 +127,11 @@ public class EditPasswordFragment extends AddPasswordFragment {
                 password,
                 url
         );
-        ((MainActivity) getActivity()).replaceContainerFragment(passwordDetailFragment, true);
+        switchFragment(fragmentManager, passwordDetailFragment, "edit_to_detail_fragment");
         Toast.makeText(requireContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
     }
 
-    private int getBundleID(){
+    private int getBundleID() {
         Bundle args = getArguments();
         if (args != null)
             return args.getInt(ID);

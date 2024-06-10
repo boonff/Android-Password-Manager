@@ -71,14 +71,14 @@ public class PasswordRepository {
     public List<Password> findPasswordByName(String findName){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String selection = DatabaseHelper.COLUMN_NAME + " LIKE ? OR " + DatabaseHelper.COLUMN_USERNAME + " LIKE ?";
+        String selection = DatabaseHelper.COLUMN_NAME + " LIKE ? OR " + DatabaseHelper.COLUMN_USERNAME + " LIKE ?"+ DatabaseHelper.COLUMN_URL + " LIKE ?";
 
 
         Cursor cursor = db.query(
                 DatabaseHelper.TABLE_NAME,
                 null,
                 selection,
-                new String[]{"%" + findName + "%", "%" + findName + "%"},
+                new String[]{"%" + findName + "%", "%" + findName + "%", "%" + findName + "%"},
                 null, null, null
         );
 

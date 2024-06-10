@@ -137,14 +137,11 @@ public class GeneratePasswordFragment extends MyContainerFragment {
                 getArguments().getInt(ID),
                 getArguments().getString(NAME),
                 getArguments().getString(USERNAME),
-                getArguments().getString(URL),
-                password
+                password,
+                getArguments().getString(URL)
         );
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_main_container, editPasswordFragment)
-                .addToBackStack(null)
-                .commit();
+        switchFragment(fragmentManager, editPasswordFragment, "generate_to_edit_fragment");
     }
 
     private void createAddButtonView(View view) {
