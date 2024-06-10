@@ -42,17 +42,6 @@ public class AuthActivity extends AppCompatActivity {
         loadFragment(LoginFragment.newInstance(), addToBackStack);
     }
 
-    public void switchToChange(boolean addToBackStack) {
-        loadFragment(ChangePasswordFragment.newInstance(), addToBackStack);
-    }
-
-    public void switchToSignup() {
-        loadFragment(SignupFragment.newInstance(), true);
-    }
-
-    public void switchToLogin() {
-        loadFragment(LoginFragment.newInstance(), true);
-    }
     public void switchToChange() {
         loadFragment(ChangePasswordFragment.newInstance(), true);
     }
