@@ -1,4 +1,4 @@
-package com.example.passwords.fragment;
+package com.example.passwords.fragment.container;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.passwords.R;
 
-public class MyFragment extends Fragment {
+public class MyContainerFragment extends Fragment {
     protected FragmentManager fragmentManager;
     protected static final String BUTTON_TYPE = "button_type";
     protected static final String NAME = "name";

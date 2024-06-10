@@ -18,12 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passwords.R;
 import com.example.passwords.database.Password;
 import com.example.passwords.database.PasswordRepository;
-import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.recycler_view.PasswordAdapter;
 
 import java.util.List;
 
-public class FindPasswordFragment extends MyFragment {
+public class FindPasswordFragment extends MyContainerFragment {
 
     private PasswordAdapter adapter;
     private RecyclerView recyclerView;

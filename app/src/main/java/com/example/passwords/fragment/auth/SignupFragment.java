@@ -13,14 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.passwords.R;
-import com.example.passwords.activity.AuthActivity;
-import com.example.passwords.fragment.MyFragment;
+import com.example.passwords.fragment.container.MyContainerFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class SignupFragment extends MyFragment {
+public class SignupFragment extends MyAuthFragment {
 
     EditText inputEditText;
     Button hideButton;

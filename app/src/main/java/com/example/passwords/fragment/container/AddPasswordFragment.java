@@ -17,9 +17,8 @@ import androidx.annotation.Nullable;
 
 import com.example.passwords.R;
 import com.example.passwords.database.PasswordRepository;
-import com.example.passwords.fragment.MyFragment;
 
-public class AddPasswordFragment extends MyFragment {
+public class AddPasswordFragment extends MyContainerFragment {
 
     protected EditText editTextName;
     protected EditText editTextUsername;

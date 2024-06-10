@@ -18,9 +18,8 @@ import androidx.annotation.Nullable;
 
 import com.example.passwords.database.Password;
 import com.example.passwords.R;
-import com.example.passwords.fragment.MyFragment;
 
-public class PasswordDetailFragment extends MyFragment {
+public class PasswordDetailFragment extends MyContainerFragment {
     private static final String NAME = "name";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";

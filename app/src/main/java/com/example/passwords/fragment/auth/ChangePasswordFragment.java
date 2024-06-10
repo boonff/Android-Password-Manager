@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -18,11 +17,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.passwords.R;
-import com.example.passwords.activity.AuthActivity;
-import com.example.passwords.fragment.MyFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class ChangePasswordFragment extends MyFragment {
+public class ChangePasswordFragment extends MyAuthFragment {
 
     private EditText oldPasswordEditText;
     private EditText newPasswordEditText;

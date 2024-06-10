@@ -12,10 +12,10 @@ import androidx.annotation.Nullable;
 import com.example.passwords.R;
 import com.example.passwords.fragment.container.AddPasswordFragment;
 import com.example.passwords.fragment.container.GeneratePasswordFragment;
-import com.example.passwords.fragment.MyFragment;
+import com.example.passwords.fragment.container.MyContainerFragment;
 import com.example.passwords.fragment.container.PasswordListFragment;
 
-public class BottomBarFragment extends MyFragment {
+public class BottomBarFragment extends MyContainerFragment {
     public static BottomBarFragment newInstance() {
         return new BottomBarFragment();
     }

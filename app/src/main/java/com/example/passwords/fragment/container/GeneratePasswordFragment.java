@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.passwords.R;
-import com.example.passwords.fragment.MyFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +27,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class GeneratePasswordFragment extends MyFragment {
+public class GeneratePasswordFragment extends MyContainerFragment {
 
     TextView topBarText;
     TextView generatedPasswordTextView;

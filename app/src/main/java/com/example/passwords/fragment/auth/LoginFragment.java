@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -19,12 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.passwords.R;
-import com.example.passwords.activity.AuthActivity;
 import com.example.passwords.activity.MainActivity;
-import com.example.passwords.fragment.MyFragment;
+import com.example.passwords.fragment.container.MyContainerFragment;
 import com.example.passwords.key.PasswordUtil;
 
-public class LoginFragment extends MyFragment {
+public class LoginFragment extends MyAuthFragment {
 
     private EditText inputEditText;
     private Button hideButton;
@@ -114,7 +113,8 @@ public class LoginFragment extends MyFragment {
         switchFragment(fragmentManager, signupFragment, "signup_fragment");
     }
     private void goToChange(){
-        ((AuthActivity) getActivity()).switchToChange();
+        ChangePasswordFragment changePasswordFragment = ChangePasswordFragment.newInstance();
+        switchFragment(fragmentManager, changePasswordFragment, "change_fragment");
     }
 
     private void checkPasswordHashExists() {
