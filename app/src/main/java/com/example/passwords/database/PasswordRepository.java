@@ -9,6 +9,7 @@ import com.example.passwords.key.EncryptionUtil;
 import com.example.passwords.key.KeyStoreUtil;
 
 import javax.crypto.SecretKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,14 +65,15 @@ public class PasswordRepository {
             e.printStackTrace();
         } finally {
             cursor.close();
+            db.close();
         }
         return passwords;
     }
 
-    public List<Password> findPasswordByName(String findName){
+    public List<Password> findPasswordByName(String findName) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String selection = DatabaseHelper.COLUMN_NAME + " LIKE ? OR " + DatabaseHelper.COLUMN_USERNAME + " LIKE ?"+ DatabaseHelper.COLUMN_URL + " LIKE ?";
+        String selection = DatabaseHelper.COLUMN_NAME + " LIKE ? OR " + DatabaseHelper.COLUMN_USERNAME + " LIKE ? OR " + DatabaseHelper.COLUMN_URL + " LIKE ?";
 
 
         Cursor cursor = db.query(
@@ -98,6 +100,8 @@ public class PasswordRepository {
             e.printStackTrace();
         } finally {
             cursor.close();
+            db.close();
+
         }
         return passwords;
     }

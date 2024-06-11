@@ -121,7 +121,7 @@ public class AddPasswordFragment extends MyContainerFragment {
         String url = editTextUrl.getText().toString().trim();
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(url)) {
-            Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "不允许空字段", Toast.LENGTH_SHORT).show();
             return;
         }
 
