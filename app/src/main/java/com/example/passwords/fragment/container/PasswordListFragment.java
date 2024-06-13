@@ -47,24 +47,17 @@ public class PasswordListFragment extends MyContainerFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // 初始化密码仓库
         passwordRepository = new PasswordRepository(getContext());
-        //passwordRepository.clearAllPasswords();
 
         // 获取密码列表并设置适配器
         List<Password> passwords = passwordRepository.getAllPasswords();
-        adapter = new PasswordAdapter(getContext(), passwords, fragmentManager);
+        adapter = new PasswordAdapter(getContext(), passwords, getParentFragmentManager());
         recyclerView.setAdapter(adapter);
         //项目数量
         textView.setText(Integer.toString(passwords.size()));
 
         findButton.setOnClickListener(v -> {
             FindPasswordFragment findPasswordFragment = FindPasswordFragment.newInstance();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_main_container, findPasswordFragment)
-                    .addToBackStack(null)
-                    .commit();
-
+            switchFragment(getParentFragmentManager(), findPasswordFragment, "list_to_find_fragment");
         });
-
     }
-
 }

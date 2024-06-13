@@ -26,18 +26,18 @@ public class MyContainerFragment extends Fragment {
     }
 
     public void switchFragment(FragmentManager fragmentManager, Fragment fragment, String tag) {
-        //弹出同tag的条目
+        // 弹出同tag的条目
         Fragment existingFragment = fragmentManager.findFragmentByTag(tag);
         if (existingFragment != null) {
             fragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-        //检查返回栈深度，弹出最旧的条目
-        if (fragmentManager.getBackStackEntryCount() >= 3)
+        // 检查返回栈深度，弹出最旧的条目
+        if (fragmentManager.getBackStackEntryCount() >= 3) {
             fragmentManager.popBackStack(
                     fragmentManager.getBackStackEntryAt(0).getId(),
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
             );
-
+        }
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_main_container, fragment, tag);

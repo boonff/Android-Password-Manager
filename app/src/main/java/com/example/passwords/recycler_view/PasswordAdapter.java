@@ -96,7 +96,6 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
                 return true;
             }
         });
-
     }
 
     // 获取密码列表的大小

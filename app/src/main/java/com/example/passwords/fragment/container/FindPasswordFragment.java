@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,11 +25,9 @@ public class FindPasswordFragment extends MyContainerFragment {
     private PasswordAdapter adapter;
     private RecyclerView recyclerView;
     private Button findButton;
-    private TextView messageTextView;
     Button returnButton;
     private PasswordRepository passwordRepository;
     private EditText findEditText;
-    private FragmentManager fragmentManager;
 
     public static FindPasswordFragment newInstance() {
         return new FindPasswordFragment();
@@ -54,7 +50,6 @@ public class FindPasswordFragment extends MyContainerFragment {
 
         view.findViewById(R.id.find_text).setVisibility(View.GONE);
 
-
         // 初始化密码仓库
         passwordRepository = new PasswordRepository(getContext());
 
@@ -62,7 +57,7 @@ public class FindPasswordFragment extends MyContainerFragment {
             try {
                 String query = findEditText.getText().toString().trim();
                 List<Password> filteredPasswords = passwordRepository.findPasswordByName(query);
-                adapter = new PasswordAdapter(getContext(), filteredPasswords, fragmentManager);
+                adapter = new PasswordAdapter(getContext(), filteredPasswords, getParentFragmentManager());
                 recyclerView.setAdapter(adapter);
                 // 检查结果列表是否为空
                 if (query.isEmpty()) {
@@ -85,12 +80,7 @@ public class FindPasswordFragment extends MyContainerFragment {
 
         returnButton.setOnClickListener(v -> {
             PasswordListFragment passwordListFragment = PasswordListFragment.newInstance();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            // 替换当前容器中的 Fragment 为 FindPasswordFragment
-            transaction.replace(R.id.fragment_main_container, passwordListFragment);
-
-            transaction.commit();
+            switchFragment(getParentFragmentManager(), passwordListFragment, "find_to_list_fragment");
         });
     }
-
 }
