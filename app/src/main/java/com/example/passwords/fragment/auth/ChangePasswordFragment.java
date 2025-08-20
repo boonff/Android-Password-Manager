@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.passwords.R;
@@ -21,6 +22,7 @@ import com.example.passwords.key.PasswordUtil;
 
 public class ChangePasswordFragment extends MyAuthFragment {
 
+    private TextView top_bar_text;
     private EditText oldPasswordEditText;
     private EditText newPasswordEditText;
     private EditText re_newPasswordEditText;
@@ -50,6 +52,9 @@ public class ChangePasswordFragment extends MyAuthFragment {
         hideNewPasswordButton = view.findViewById(R.id.change_hide_new_password);
         re_hideNewPasswordButton = view.findViewById(R.id.change_re_hide_new_password);
         changePasswordButton = view.findViewById(R.id.change_password_button);
+        top_bar_text = view.findViewById(R.id.top_bar_text);
+
+        top_bar_text.setText("修改密码");
 
         hideOldPasswordButton.setOnClickListener(v -> toggleOldPasswordVisibility());
         hideNewPasswordButton.setOnClickListener(v -> toggleNewPasswordVisibility(hideNewPasswordButton, newPasswordEditText, 0));
